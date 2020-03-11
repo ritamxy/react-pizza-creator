@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled from "styled-components";
 import EnterYourDetails from "./components/EnterYourDetails";
 import ChooseYourPizza from "./components/ChooseYourPizza";
@@ -25,15 +24,124 @@ const PlaceOrderButton = styled.button`
   }
 `;
 
-function App() {
-  return (
-    <Layout>
-      <EnterYourDetails />
-      <ChooseYourPizza />
-      <OrderSummaryList />
-      <PlaceOrderButton>Place order</PlaceOrderButton>
-    </Layout>
-  );
+const SIZES = [
+  {
+    percentage: 1,
+    name: 'Largr (13")',
+    price: 13.99
+  },
+  {
+    percentage: 0.85,
+    name: 'Medium (11")',
+    price: 11.99
+  },
+  {
+    percentage: 0.7,
+    name: 'Largr (9")',
+    price: 9.99
+  }
+];
+
+const TOPPINGS = [
+  {
+    name: "anchovy",
+    price: 0.99
+  },
+  {
+    name: "bacon",
+    price: 0.99
+  },
+  {
+    name: "basil",
+    price: 0.99
+  },
+  {
+    name: "chili",
+    price: 0.99
+  },
+  {
+    name: "mozzarella",
+    price: 0.99
+  },
+  {
+    name: "mushroom",
+    price: 0.99
+  },
+  {
+    name: "olive",
+    price: 0.99
+  },
+  {
+    name: "onion",
+    price: 0.99
+  },
+  {
+    name: "pepper",
+    price: 0.99
+  },
+  {
+    name: "pepperoni",
+    price: 0.99
+  },
+  {
+    name: "sweetcorn",
+    price: 0.99
+  },
+  {
+    name: "tomato",
+    price: 0.99
+  }
+];
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedSize: SIZES[0],
+      chosenToppings: []
+    };
+
+    this.handleSelectSize = this.handleSelectSize.bind(this);
+    this.handleChooseTopping = this.handleChooseTopping.bind(this);
+  }
+
+  handleSelectSize(size) {
+    this.setState({
+      selectedSize: size
+    });
+  }
+
+  handleChooseTopping(topping) {
+    this.setState(preState => {
+      const { chosenToppings } = preState;
+
+      if (chosenToppings.includes(topping)) {
+        return {
+          choosenToppings: chosenToppings.filter(
+            chosenTopping => chosenTopping !== topping
+          )
+        };
+      }
+
+      return {
+        chosenToppings: [...chosenToppings, topping]
+      };
+    });
+  }
+
+  render() {
+    const { selectedSize, chosenToppings } = this.state;
+
+    return (
+      <Layout>
+        <EnterYourDetails />
+        <ChooseYourPizza />
+        <OrderSummaryList />
+        <PlaceOrderButton>Place order</PlaceOrderButton>
+      </Layout>
+    );
+  }
 }
 
 export default App;
