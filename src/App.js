@@ -113,8 +113,8 @@ class App extends React.Component {
   }
 
   handleChooseTopping(topping) {
-    this.setState(preState => {
-      const { chosenToppings } = preState;
+    this.setState(prevState => {
+      const { chosenToppings } = prevState;
 
       if (chosenToppings.includes(topping)) {
         return {
@@ -136,8 +136,17 @@ class App extends React.Component {
     return (
       <Layout>
         <EnterYourDetails />
-        <ChooseYourPizza />
-        <OrderSummaryList />
+        <ChooseYourPizza
+          sizes={SIZES}
+          selectedSize={this.handleSelectSize}
+          toppings={TOPPINGS}
+          chosenToppings={chosenToppings}
+          onToppingChosen={this.handleChooseTopping}
+        />
+        <OrderSummaryList
+          selectedSize={selectedSize}
+          chosenToppings={chosenToppings}
+        />
         <PlaceOrderButton>Place order</PlaceOrderButton>
       </Layout>
     );
