@@ -34,7 +34,7 @@ const Item = ({ pizza, toppings }) => (
     </Pizza>
     <ToppingsUnorderList>
       {toppings.map(topping => (
-        <li>
+        <li key={topping.name}>
           <Topping>
             <Name>{topping.name}</Name>
             <div>${topping.price}</div>
